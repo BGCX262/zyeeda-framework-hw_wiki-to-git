@@ -1,5 +1,5 @@
+#summary 在 Windows 环境下部署 Tomcat 7 服务器
 #labels Phase-Deploy
-#在 Windows 环境下部署 Tomcat 7 服务器
 
 = 准备 =
 
@@ -19,7 +19,7 @@
  
  %CATALINA_HOME%\bin\catalina.bat run
  }}}
- # 将 %CATALINA_HOME%\conf 下的所有文件复制到 %CATALINA_BASE%\conf 下
+ # 将 %CATALINA_HOME%\conf 目录下的所有文件复制到 %CATALINA_BASE%\conf 目录下
 
 = 运行 =
 
