@@ -1,5 +1,5 @@
 #labels Phase-Deploy
-# 在 Windows 环境下部署 Tomcat 7 服务器
+#在 Windows 环境下部署 Tomcat 7 服务器
 
 = 准备 =
 
