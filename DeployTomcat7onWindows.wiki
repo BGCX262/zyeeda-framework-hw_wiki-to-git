@@ -1,0 +1,33 @@
+#labels Phase-Deploy
+# 在 Windows 环境下部署 Tomcat 7 服务器
+
+= 准备 =
+
+ # 从 Apache 官方网站下载 Tomcat 7
+ # 将压缩包解压到本地文件系统，例如 C:\apache-tomcat-7
+ # 创建 Tomcat 实例的运行目录，例如 C:\tomcat-instances\server1
+ # 在该目录下创建 bin, conf, lib, logs, temp, webapps, work 目录
+ # 根据 [http://tomcat.apache.org/download-native.cgi Tomcat Native] 文档的介绍，下载 Tomcat Native Connector (Windows 版本)，将 openssl.exe 和 tcnative-1.dll 放置于 lib 目录下
+
+= 配置 =
+
+ # 在 bin 目录下创建 catalina.bat 文件，内容如下：
+ {{{
+ set CATALINA_HOME=C:\apache-tomcat-7
+ set CATALINA_BASE=C:\tomcat-instances\server1
+ set PATH=%PATH%;%CATALINA_BASE%\lib
+ 
+ %CATALINA_HOME%\bin\catalina.bat run
+ }}}
+ # 将 %CATALINA_HOME%\conf 下的所有文件复制到 %CATALINA_BASE%\conf 下
+
+= 运行 =
+
+ # 将命令行指向 %CATALINA_BASE%\bin 然后执行 catalina.bat
+ # 如果命令行出现如下内容，则配置成功
+ {{{
+ 2011-1-28 21:00:05 org.apache.catalina.core.AprLifecycleListener init
+ 信息: Loaded APR based Apache Tomcat Native library 1.1.20.
+ 2011-1-28 21:00:05 org.apache.catalina.core.AprLifecycleListener init
+ 信息: APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+ }}}
