@@ -1,0 +1,21 @@
+#summary 在 Ubuntu 系统上部署 Tomcat 7 服务器
+
+= 编译 Apache Portable Runtime (APR) =
+
+ # 从 Apache [http://apr.apache.org 官方网站]下载 APR（本例使用的版本是 1.4.2）
+ # 将压缩包解压到本地目录，例如 /usr/src/apr-1.4.2
+ # 执行如下命令，编译并安装 APR
+ {{{
+ ./configure
+ make
+ make test
+ make install
+ }}}
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
