@@ -1,0 +1,64 @@
+#summary 用 Log4j 作为 Tomcat 7 的 Log 中间件
+#labels Phase-Deploy
+
+= 准备 =
+
+ # 参考 [HowToDeployTomcat7OnWindows] 或 [HowToDeployTomcat7OnUbuntu] 部署一个 Tomcat 实例
+ # 在 Tomcat 7 下载页面上点击 Browse，从 bin/extras 目录下载 tomcat-juli.jar 和 tomcat-juli-adapters.jar 两个文件
+ # 将 tomcat-juli.jar 文件放置到 $CATALINA_BASE/bin 目录
+ # 将 tomcat-juli-adapters.jar 文件放置到 $CATALINA_BASE/lib 目录
+ # 从 log4j 网站下载 jar 包，并放置于 $CATALINA_BASE/lib 目录
+ # 删除 $CATALINA_BASE/conf 下的 logging.properties 文件
+ # 在 $CATALINA_BASE/lib 目录下创建 log4j.properties 文件，内容如下
+ {{{
+ # appenders #
+ log4j.appender.CONSOLE = org.apache.log4j.ConsoleAppender
+ log4j.appender.CONSOLE.encoding = UTF-8
+ log4j.appender.CONSOLE.layout = org.apache.log4j.PatternLayout
+ log4j.appender.CONSOLE.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+
+ log4j.appender.CATALINA = org.apache.log4j.DailyRollingFileAppender
+ log4j.appender.CATALINA.file = ${catalina.base}/logs/catalina.
+ log4j.appender.CATALINA.encoding = UTF-8
+ log4j.appender.CATALINA.datePattern = '.'yyyy-MM-dd'.log'
+ log4j.appender.CATALINA.layout = org.apache.log4j.PatternLayout
+ log4j.appender.CATALINA.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.CATALINA.append = true
+
+ log4j.appender.LOCALHOST = org.apache.log4j.DailyRollingFileAppender
+ log4j.appender.LOCALHOST.file = ${catalina.base}/logs/localhost.
+ log4j.appender.LOCALHOST.encoding = UTF-8
+ log4j.appender.LOCALHOST.datePattern = '.'yyyy-MM-dd'.log'
+ #log4j.appender.LOCALHOST.maxFileSize = 100MB
+ #log4j.appender.LOCALHOST.maxBackupIndex = 10 
+ log4j.appender.LOCALHOST.layout = org.apache.log4j.PatternLayout
+ log4j.appender.LOCALHOST.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.LOCALHOST.append = true
+
+ log4j.appender.MANAGER = org.apache.log4j.DailyRollingFileAppender
+ log4j.appender.MANAGER.file = ${catalina.base}/logs/manager.
+ log4j.appender.MANAGER.encoding = UTF-8
+ log4j.appender.MANAGER.datePattern = '.'yyyy-MM-dd'.log'
+ log4j.appender.MANAGER.layout = org.apache.log4j.PatternLayout
+ log4j.appender.MANAGER.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.MANAGER.append = true
+
+ log4j.appender.HOST-MANAGER = org.apache.log4j.DailyRollingFileAppender
+ log4j.appender.HOST-MANAGER.file = ${catalina.base}/logs/host-manager.
+ log4j.appender.HOST-MANAGER.encoding = UTF-8
+ log4j.appender.HOST-MANAGER.datePattern = '.'yyyy-MM-dd'.log'
+ log4j.appender.HOST-MANAGER.layout = org.apache.log4j.PatternLayout
+ log4j.appender.HOST-MANAGER.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.HOST-MANAGER.append = true
+
+ # root logger #
+ log4j.rootLogger = INFO, CONSOLE, CATALINA
+
+ log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost] = INFO, CONSOLE, LOCALHOST
+ log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager] = INFO, MANAGER
+ log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/host-manager] = INFO, HOST-MANAGER
+
+ log4j.logger.org.apache.catalina.core = INFO, CONSOLE, LOCALHOST
+ log4j.logger.org.apache.catalina.session = INFO, CONSOLE, LOCALHOST
+ }}}
+ # 重新启动 Tomcat，如果输出的 log 和配置中的格式一致，则表示配置成功
