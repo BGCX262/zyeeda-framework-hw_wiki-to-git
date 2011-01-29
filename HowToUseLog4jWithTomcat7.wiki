@@ -15,14 +15,14 @@
  log4j.appender.CONSOLE = org.apache.log4j.ConsoleAppender
  log4j.appender.CONSOLE.encoding = UTF-8
  log4j.appender.CONSOLE.layout = org.apache.log4j.PatternLayout
- log4j.appender.CONSOLE.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.CONSOLE.layout.conversionPattern = %d [%t] %-5p %c - %m%n
 
  log4j.appender.CATALINA = org.apache.log4j.DailyRollingFileAppender
  log4j.appender.CATALINA.file = ${catalina.base}/logs/catalina.
  log4j.appender.CATALINA.encoding = UTF-8
  log4j.appender.CATALINA.datePattern = '.'yyyy-MM-dd'.log'
  log4j.appender.CATALINA.layout = org.apache.log4j.PatternLayout
- log4j.appender.CATALINA.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.CATALINA.layout.conversionPattern = %d [%t] %-5p %c - %m%n
  log4j.appender.CATALINA.append = true
 
  log4j.appender.LOCALHOST = org.apache.log4j.DailyRollingFileAppender
@@ -32,7 +32,7 @@
  #log4j.appender.LOCALHOST.maxFileSize = 100MB
  #log4j.appender.LOCALHOST.maxBackupIndex = 10 
  log4j.appender.LOCALHOST.layout = org.apache.log4j.PatternLayout
- log4j.appender.LOCALHOST.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.LOCALHOST.layout.conversionPattern = %d [%t] %-5p %c - %m%n
  log4j.appender.LOCALHOST.append = true
 
  log4j.appender.MANAGER = org.apache.log4j.DailyRollingFileAppender
@@ -40,7 +40,7 @@
  log4j.appender.MANAGER.encoding = UTF-8
  log4j.appender.MANAGER.datePattern = '.'yyyy-MM-dd'.log'
  log4j.appender.MANAGER.layout = org.apache.log4j.PatternLayout
- log4j.appender.MANAGER.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.MANAGER.layout.conversionPattern = %d [%t] %-5p %c - %m%n
  log4j.appender.MANAGER.append = true
 
  log4j.appender.HOST-MANAGER = org.apache.log4j.DailyRollingFileAppender
@@ -48,17 +48,17 @@
  log4j.appender.HOST-MANAGER.encoding = UTF-8
  log4j.appender.HOST-MANAGER.datePattern = '.'yyyy-MM-dd'.log'
  log4j.appender.HOST-MANAGER.layout = org.apache.log4j.PatternLayout
- log4j.appender.HOST-MANAGER.layout.conversionPattern = %d [%t] %-5p %c- %m%n
+ log4j.appender.HOST-MANAGER.layout.conversionPattern = %d [%t] %-5p %c - %m%n
  log4j.appender.HOST-MANAGER.append = true
 
- # root logger #
+# root logger #
  log4j.rootLogger = INFO, CONSOLE, CATALINA
 
- log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost] = INFO, CONSOLE, LOCALHOST
+ log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost] = INFO, LOCALHOST
  log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/manager] = INFO, MANAGER
  log4j.logger.org.apache.catalina.core.ContainerBase.[Catalina].[localhost].[/host-manager] = INFO, HOST-MANAGER
 
- log4j.logger.org.apache.catalina.core = INFO, CONSOLE, LOCALHOST
- log4j.logger.org.apache.catalina.session = INFO, CONSOLE, LOCALHOST
+ log4j.logger.org.apache.catalina.core = INFO, LOCALHOST
+ log4j.logger.org.apache.catalina.session = INFO, LOCALHOST
  }}}
  # 重新启动 Tomcat，如果输出的 log 和配置中的格式一致，则表示配置成功
