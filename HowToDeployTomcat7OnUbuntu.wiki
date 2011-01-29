@@ -1,10 +1,11 @@
 #summary 在 Ubuntu 系统上部署 Tomcat 7 服务器
+#labels Phase-Deploy
 
 = 编译 Apache Portable Runtime (APR) =
 
  # 从 Apache [http://apr.apache.org 官方网站]下载 APR（本例使用的版本是 1.4.2）
  # 将压缩包解压到本地目录，例如 /usr/src/apr-1.4.2
- # 执行如下命令，编译并安装 APR
+ # 在该目录下执行命令，编译并安装 APR
  {{{
  ./configure
  make
@@ -19,7 +20,7 @@
  # 将压缩包解压到本地目录，例如 /usr/local/apache-tomcat-7
  # 从解压后的 bin 目录中复制 tomcat-native.tar.gz 到 /usr/src
  # 执行 `tar -xvzf tomcat-native.tar.gz` 解压该文件
- # 进入解压后目录下的 jni/native，执行如下命令进行编译
+ # 进入解压后目录下的 jni/native 目录，执行如下命令进行编译
  {{{
  ./configure --with-apr=/usr/local/apr --with-ssl=/usr --with-java-home=YOUR_JAVA_HOME
  make
@@ -43,8 +44,12 @@
  {{{
  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/apr/lib
  }}}
- # 进入 bin 目录，执行 catalina.sh 命令，如果输出如下内容，则部署成功
+ # 进入 bin 目录，执行 catalina.sh 命令，如果输出类似如下内容，则部署成功
  {{{
+ 2011-01-29 20:23:30,484 [main] INFO  org.apache.catalina.core.AprLifecycleListener- Loaded APR based Apache Tomcat Native library 1.1.21.
+ 2011-01-29 20:23:30,528 [main] INFO  org.apache.catalina.core.AprLifecycleListener- APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+ 2011-01-29 20:23:31,892 [main] INFO  org.apache.coyote.http11.Http11AprProtocol- Initializing ProtocolHandler ["http-apr-8080"]
+ 2011-01-29 20:23:31,913 [main] INFO  org.apache.coyote.ajp.AjpAprProtocol- Initializing ProtocolHandler ["ajp-apr-8009"]
  }}}
 
 = 参考 =
