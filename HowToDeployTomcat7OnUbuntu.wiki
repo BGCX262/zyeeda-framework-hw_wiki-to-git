@@ -11,11 +11,44 @@
  make test
  make install
  }}}
+ # 运行成功后，APR 将被安装在 /usr/local/apr 目录下
 
+= 编译 Tomcat Native Library =
 
-= Details =
+ # 从 Apache 官方网站下载 Tomcat 7
+ # 将压缩包解压到本地目录，例如 /usr/local/apache-tomcat-7
+ # 从解压后的 bin 目录中复制 tomcat-native.tar.gz 到 /usr/src
+ # 执行 `tar -xvzf tomcat-native.tar.gz` 解压该文件
+ # 进入解压后目录下的 jni/native，执行如下命令进行编译
+ {{{
+ ./configure --with-apr=/usr/local/apr --with-ssl=/usr --with-java-home=YOUR_JAVA_HOME
+ make
+ make install
+ }}}
+ # 执行成功后，Tomcat Native Library 被安装在 /usr/local/apr 目录下
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= 配置和运行 =
+
+ # 在 HOME 目录下创建 Tomcat 实例的运行目录，例如 ~/tomcat-instances/server1
+ # 在该目录下创建 bin, conf, lib, logs, temp, webapps, work 等目录
+ # 在 bin 目录下创建 catalina.sh 文件，内容如下
+ {{{
+ export JAVA_HOME=YOUR_JAVA_HOME
+ export CATALINA_HOME=/usr/local/apache-tomcat-7
+ export CATALINA_BASE=~/tomcat-instances/server1
+
+ $CATALINA_HOME/bin/catalina.sh run
+ }}}
+ # 在 bin 目录下创建 setenv.sh 文件，内容如下
+ {{{
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/apr/lib
+ }}}
+ # 进入 bin 目录，执行 catalina.sh 命令，如果输出如下内容，则部署成功
+ {{{
+ }}}
+
+= 参考 =
+
+ * http://apr.apache.org/
+ * http://tomcat.apache.org/tomcat-7.0-doc/apr.html
+ * http://jeboyer.wordpress.com/2010/05/17/installing-tomcat-native-lib-with-ssl/
