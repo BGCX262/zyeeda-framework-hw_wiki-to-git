@@ -1,0 +1,89 @@
+#summary 在 Tomcat 7 上部署 BTM
+#labels Phase-Deploy
+
+= 约定 =
+
+如果下文中没有提及某个目录的具体位置，则均是暗指相对于 Tomcat 实例的根目录，即 CATALINA_BASE 环境变量所指向的目录。
+
+= 准备 =
+
+ # 参考 [HowToDeployTomcat7OnWindows] 或 [HowToDeployTomcat7OnUbuntu] 部署一个 Tomcat 实例
+ # 参考 [HowToUseLog4jWithTomcat7] 为 Tomcat 替换 log4j 中间件
+ # 从 [http://docs.codehaus.org/display/BTM/Home BTM] 网站下载 BTM 压缩包（当前版本为 2.1.0）
+ # 从 BTM 的压缩包（以 2.1.0 为例）中将 btm-2.1.0.jar, jta-1.1.jar, slf4j-api-1.6.0.jar, slf4j-log4j12-1.6.0.jar 以及 btm-tomcat55-lifecycle-2.1.0.jar 解压到 lib 目录
+ # 如果在系统中使用了数据库，还应该将该种数据库提供的 JDBC 驱动程序放置在 lib 目录下（如本例中就需要 ojdbc14.jar）
+
+= 配置 =
+
+ # 如果是 Linux 系统，则修改 bin/setenv.sh 文件，为 JAVA_OPTS 变量增加两个参数 `-Dbtm.root=$CATALINA_BASE -Dbitronix.tm.configuration=$CATALINA_BASE/conf/btm-config.properties`
+ # 如果是 Windows 系统，则修改 bin/catalina.bat 文件，为 JAVA_OPTS 变量增加两个参数 `-Dbtm.root=%CATALINA_BASE% -Dbitronix.tm.configuration=%CATALINA_BASE%/conf/btm-config.properties`
+ # 在 conf 目录下创建 btm-config.properties 文件，内容如下
+ {{{
+ bitronix.tm.serverId = tomcat7-btm-node0
+ bitronix.tm.journal.disk.logPart1Filename = ${btm.root}/work/btm1.tlog
+ bitronix.tm.journal.disk.logPart2Filename = ${btm.root}/work/btm2.tlog
+ bitronix.tm.resource.configuration = ${btm.root}/conf/btm-resources.properties
+ }}}
+ # 在 conf 目录下创建 btm-resources.properties 文件，内容如下
+ {{{
+ resource.defaultDS.className = oracle.jdbc.xa.client.OracleXADataSource
+ resource.defaultDS.uniqueName = jdbc/defaultDS
+ resource.defaultDS.minPoolSize = 0
+ resource.defaultDS.maxPoolSize = 5
+ resource.defaultDS.allowLocalTransactions = true
+ resource.defaultDS.driverProperties.user = zyeeda
+ resource.defaultDS.driverProperties.password = zyeeda
+ resource.defaultDS.driverProperties.URL = jdbc:oracle:thin:@localhost:1521:XE
+
+ resource.droolsTaskDS.className = oracle.jdbc.xa.client.OracleXADataSource
+ resource.droolsTaskDS.uniqueName = jdbc/droolsTaskDS
+ resource.droolsTaskDS.minPoolSize = 0
+ resource.droolsTaskDS.maxPoolSize = 5
+ resource.droolsTaskDS.allowLocalTransactions = true
+ resource.droolsTaskDS.driverProperties.user = zyeeda
+ resource.droolsTaskDS.driverProperties.password = zyeeda
+ resource.droolsTaskDS.driverProperties.URL = jdbc:oracle:thin:@localhost:1521:XE
+ }}}
+ # 修改 conf 目录下的 server.xml 文件，在 Server 标签下添加一个 Listener 标签，如下
+ {{{
+ <Listener className="bitronix.tm.integration.tomcat55.BTMLifecycleListener" />
+ }}}
+ # 在 conf/Catalina/localhost 目录下创建 ROOT.xml 文件，这是部署于 Tomcat 下的一个 web 应用程序的描述符，主要在这里定义数据源和事务管理器，内容参考如下
+ {{{
+ <Context allowLinking="true" reloadable="true"
+    docBase="指向应用程序所在的根目录">
+
+    <Resource name="jdbc/defaultDS" auth="Container" type="javax.sql.XADataSource"
+        factory="bitronix.tm.resource.ResourceObjectFactory"
+        uniqueName="jdbc/defaultDS" />
+
+    <Resource name="jdbc/droolsTaskDS" auth="Container" type="javax.sql.XADataSource"
+        factory="bitronix.tm.resource.ResourceObjectFactory"
+        uniqueName="jdbc/droolsTaskDS" />
+
+    <Resource name="UserTransaction" auth="Container"
+        type="javax.transaction.UserTransaction" />
+    <Transaction factory="bitronix.tm.BitronixUserTransactionObjectFactory" />
+        
+    <Resource name="TransactionManager" auth="Container"
+    	type="javax.transaction.TransactionManager"
+    	factory="bitronix.tm.BitronixUserTransactionObjectFactory" />
+
+ </Context>
+ }}}
+ # 还需要修改应用程序的 web.xml 文件来引用定义的这些资源，参考如下
+ {{{
+ <resource-ref>
+     <description>Default Data Source</description>
+     <res-ref-name>jdbc/defaultDS</res-ref-name>
+     <res-type>javax.sql.XADataSource</res-type>
+     <res-auth>Container</res-auth>
+ </resource-ref>
+ <resource-ref>
+     <description>Drools Task Data Source</description>
+     <res-ref-name>jdbc/droolsTaskDS</res-ref-name>
+     <res-type>javax.sql.DataSource</res-type>
+     <res-auth>Container</res-auth>
+ </resource-ref>
+ }}}
+ # 启动 Tomcat，如果能够看到有关 BTM 及数据库连接方面的日志信息，则表示配置正确
