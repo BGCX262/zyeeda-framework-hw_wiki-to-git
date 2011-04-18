@@ -19,6 +19,7 @@
 = 配置 =
 
  # 按照[http://code.google.com/p/zyeeda-framework/source/checkout 这里]的介绍，获取源代码，并放置在 %WS%\zyeeda-framework 目录下
+ # 打开 %WS%\zyeeda-framework\drivebox\src\main\resources\META-INF\persistence.xml，根据使用的数据库不同，修改 hibernate.dialect 属性
  # 执行如下命令
  {{{
  cd %WS%\zyeeda-framework
