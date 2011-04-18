@@ -27,7 +27,7 @@
  junction lib %WS%\zyeeda-framework\drivebox\target\zyeeda-framework-drivebox-1.6.0-SNAPSHOT\WEB-INF\lib
  }}}
  # 从[http://tomcat.apache.org/download-70.cgi 这里]下载 Tomcat 7 的最新版本，并解压到 %SYS% 目录
- # 从[http://code.google.com/p/zyeeda-framework/downloads/detail?name=zyeeda-framework-drivebox.zip&can=2&q=#makechanges 这里]下载 Tomcat 的预定义配置文件，并解压到 %RUN% 目录
+ # 从[http://zyeeda-framework.googlecode.com/files/zyeeda-framework-drivebox.zip 这里]下载 Tomcat 的预定义配置文件，并解压到 %RUN% 目录
  # 打开 %RUN%\zyeeda-framework-drivebox\bin\catalina.bat 文件，将 CATALINA_HOME 设置到解压后的 Tomcat 目录（即 %SYS%\apache-tomcat-7.x），将 CATALINA_BASE 设置到解压后的预定义配置文件目录（即 %RUN%\zyeeda-framework-drivebox）
  # 打开 %RUN%\zyeeda-framework-drivebox\conf\Catalina\localhost\ROOT.xml 文件，将 <YOUR DOC BASE> 替换为 %WS%\zyeeda-framework\drivebox\src\main\webapp
  # 打开 %RUN%\zyeeda-framework-drivebox\conf\btm-config.properties 文件，根据所用数据库的不同，更改 bitronix.tm.resource.configuration 参数值为 ${btm.root}/conf/btm-resources-oracle.properties（Oracle 数据库）或 ${btm.root}/conf/btm-resources-mysql.properties（MySQL 数据库）
