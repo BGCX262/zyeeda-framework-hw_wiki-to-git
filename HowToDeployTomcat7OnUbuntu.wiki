@@ -18,15 +18,26 @@
 
  # 从 Apache 官方网站下载 Tomcat 7
  # 将压缩包解压到本地目录，例如 /usr/local/apache-tomcat-7
- # 从解压后的 bin 目录中复制 tomcat-native.tar.gz 到 /usr/src
+ # 从解压后的 bin 目录复制 tomcat-native.tar.gz 到 /usr/src
  # 执行 `tar -xvzf tomcat-native.tar.gz` 解压该文件
  # 进入解压后目录下的 jni/native 目录，执行如下命令进行编译
  {{{
- ./configure --with-apr=/usr/local/apr --with-ssl=/usr --with-java-home=YOUR_JAVA_HOME
+ ./configure --with-apr=/usr/local/apr --with-ssl=yes --with-java-home=YOUR_JAVA_HOME
  make
  make install
  }}}
  # 执行成功后，Tomcat Native Library 被安装在 /usr/local/apr 目录下
+
+= 编译 Unix Daemon =
+
+ # 从解压缩后的 bin 目录复制 commons-daemon-native.tar.gz 到 /usr/src
+ # 执行 `tar -xvzf commons-daemon-native.tar.gz` 解压该文件
+ # 进入解压后目录下的 unix 目录，执行如下命令进行编译
+ {{{
+ ./configure --with-java=YOUR_JAVA_HOME
+ make
+ }}}
+ # 将生成的 jsvc 文件复制到 tomcat 解压缩后的 bin 目录
 
 = 配置和运行 =
 
@@ -57,3 +68,4 @@
  * http://apr.apache.org/
  * http://tomcat.apache.org/tomcat-7.0-doc/apr.html
  * http://jeboyer.wordpress.com/2010/05/17/installing-tomcat-native-lib-with-ssl/
+ * http://tomcat.apache.org/native-doc/
