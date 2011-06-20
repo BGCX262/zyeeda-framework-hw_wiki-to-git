@@ -3,22 +3,25 @@
 
 = 已经引入 =
 
- * [http://commons.apache.org Apache Commons]
- * [http://cxf.apache.org Apache CXF]
- * [http://shiro.apache.org Apache Shiro]
- * [http://tapestry.apache.org Tapestry 5 IoC]
- * [http://www.hibernate.org Hibernate EntityManager]
- * [http://code.google.com/p/hibernate-generic-dao/ Hibernate Generic DAO*]
- * [http://www.jboss.com/drools JBoss Drools]
- * [http://www.freemarker.org Freemarker]
- * [http://docs.codehaus.org/display/BTM/Home Bitronix]
- * [http://code.google.com/p/openid4java/ OpenID4Java]
- * LDAP
- * [http://developer.yahoo.com/yui YUI]
- * [http://www.mongodb.org MongoDB]
- * [http://www.quartz-scheduler.org/ Quartz Scheduler]
+ * [http://commons.apache.org Apache Commons - Java 基础库]
+ * [http://cxf.apache.org Apache CXF - RESTful Web Service]
+ * [http://shiro.apache.org Apache Shiro - 权限管理]
+ * [http://tapestry.apache.org Tapestry 5 IoC - 依赖注入]
+ * [http://www.hibernate.org Hibernate EntityManager - 实体关系映射]
+ * [http://code.google.com/p/hibernate-generic-dao/ Hibernate Generic DAO - 泛化的数据访问对象]
+ * [http://www.jboss.com/drools JBoss Drools - 规则引擎和流程引擎]
+ * [http://www.freemarker.org Freemarker - 模板引擎]
+ * [http://docs.codehaus.org/display/BTM/Home Bitronix - JTA]
+ * [http://code.google.com/p/openid4java/ OpenID4Java OpenID - 框架]
+ * [http://en.wikipedia.org/wiki/LDAP LDAP - 轻量级目录访问协议]
+ * [http://developer.yahoo.com/yui YUI - 前端框架]
+ * [http://www.mongodb.org MongoDB - NoSQL 数据库]
+ * [http://www.quartz-scheduler.org/ Quartz Scheduler - 计划任务与定时器]
+ * [http://code.google.com/p/java2word/ Java 2 Word - Word 导出]
+ * [http://jackson.codehaus.org/ Jackson JSON Processor - JSON 处理器]
+ * [http://mustache.github.com/ Mustache - 无逻辑的前端模板]
 
 = 准备引入 =
 
- * [http://www.hibernate.org Hibernate Search]
- * [http://poi.apache.org Apache POI]
+ * [http://www.hibernate.org Hibernate Search - 全文检索]
+ * [http://poi.apache.org Apache POI - Microsoft Office 系列文件格式支持]
