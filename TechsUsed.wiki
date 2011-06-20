@@ -8,6 +8,7 @@
  * [http://shiro.apache.org Apache Shiro]
  * [http://tapestry.apache.org Tapestry 5 IoC]
  * [http://www.hibernate.org Hibernate EntityManager]
+ * [http://code.google.com/p/hibernate-generic-dao/ Hibernate Generic DAO*]
  * [http://www.jboss.com/drools JBoss Drools]
  * [http://www.freemarker.org Freemarker]
  * [http://docs.codehaus.org/display/BTM/Home Bitronix]
@@ -15,9 +16,9 @@
  * LDAP
  * [http://developer.yahoo.com/yui YUI]
  * [http://www.mongodb.org MongoDB]
+ * [http://www.quartz-scheduler.org/ Quartz Scheduler]
 
 = 准备引入 =
 
- * [http://www.quartz-scheduler.org/ Quartz Scheduler]
  * [http://www.hibernate.org Hibernate Search]
  * [http://poi.apache.org Apache POI]
