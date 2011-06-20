@@ -1,20 +1,20 @@
-#summary 在 Windows 上部署本项目
+#summary 在 Windows 上部署本系统
 #labels Phase-Deploy
 
 = 约定 =
 
  # HOME 环境变量为 C:\home
  # WS 环境变量为 %HOME%\workspace
- # SYS 环境变量为 %HOME%\sys
- # RUN 环境变量为 %HOME%\run
+ # DOWNLOAD 环境变量为 %HOME%\download
+ # DOMAIN 环境变量为 %HOME%\domain
 
-*注：这些环境变量只是为了本文档描述方便，需要在真正配置的过程中替换为具体的目录地址*
+*注：这些环境变量只是为了本文档描述方便，不需要在操作系统上配置这些变量，只是在读下文的时候，将相同的环境变量替换为相同的路径即可。*
 
 = 准备 =
 
- # 配置 Mercurial
- # 配置 Maven 3
- # 对于 XP 系统，需要配置 junction
+ # 配置 [http://mercurial.selenic.com/ Mercurial]
+ # 配置 [http://maven.apache.org/download.html Maven 3]
+ # 配置 [http://technet.microsoft.com/en-us/sysinternals/bb896768 junction]
 
 = 配置 =
 
@@ -29,11 +29,11 @@
  junction classes %WS%\zyeeda-framework\drivebox\target\classes
  junction lib %WS%\zyeeda-framework\drivebox\target\zyeeda-framework-drivebox-1.6.0-SNAPSHOT\WEB-INF\lib
  }}}
- # 从[http://tomcat.apache.org/download-70.cgi 这里]下载 Tomcat 7 的最新版本，并解压到 %SYS% 目录
- # 从[http://zyeeda-framework.googlecode.com/files/zyeeda-framework-drivebox.zip 这里]下载 Tomcat 的预定义配置文件，并解压到 %RUN% 目录
- # 打开 %RUN%\zyeeda-framework-drivebox\bin\catalina.bat 文件，将 CATALINA_HOME 设置到解压后的 Tomcat 目录（即 %SYS%\apache-tomcat-7.x），将 CATALINA_BASE 设置到解压后的预定义配置文件目录（即 %RUN%\zyeeda-framework-drivebox）
- # 打开 %RUN%\zyeeda-framework-drivebox\conf\Catalina\localhost\ROOT.xml 文件，将 <YOUR DOC BASE> 替换为 %WS%\zyeeda-framework\drivebox\src\main\webapp
- # 打开 %RUN%\zyeeda-framework-drivebox\conf\btm-config.properties 文件，根据所用数据库的不同，更改 bitronix.tm.resource.configuration 参数值为 ${btm.root}/conf/btm-resources-oracle.properties（Oracle 数据库）或 ${btm.root}/conf/btm-resources-mysql.properties（MySQL 数据库）
+ # 从[http://tomcat.apache.org/download-70.cgi 这里]下载 Tomcat 7 的最新版本，并解压到 %DOWNLOAD% 目录
+ # 从[http://zyeeda-framework.googlecode.com/files/zyeeda-framework-drivebox.zip 这里]下载 Tomcat 的预定义配置文件，并解压到 %DOMAIN% 目录
+ # 打开 %DOMAIN%\zyeeda-framework-drivebox\bin\catalina.bat 文件，将 CATALINA_HOME 设置到解压后的 Tomcat 目录（即 %DOWNLOAD%\apache-tomcat-7.x），将 CATALINA_BASE 设置到解压后的预定义配置文件目录（即 %DOMAIN%\zyeeda-framework-drivebox）
+ # 打开 %DOMAIN%\zyeeda-framework-drivebox\conf\Catalina\localhost\ROOT.xml 文件，将 <YOUR DOC BASE> 替换为 %WS%\zyeeda-framework\drivebox\src\main\webapp
+ # 打开 %DOMAIN%\zyeeda-framework-drivebox\conf\btm-config.properties 文件，根据所用数据库的不同，更改 bitronix.tm.resource.configuration 参数值为 ${btm.root}/conf/btm-resources-oracle.properties（Oracle 数据库）或 ${btm.root}/conf/btm-resources-mysql.properties（MySQL 数据库）
  # 修改上一步对应的 btm-resources-xxx.properties 文件，将服务器地址、端口、用户名、密码和数据库等信息更改正确
  # 对于 Oracle 数据库，需要指定 CONNECT 和 RESOURCE 角色，并按照[http://docs.codehaus.org/display/BTM/FAQ#FAQ-WhyisOraclethrowingaXAExceptionduringinitializationofmydatasource%3F 这里]的方法添加其它权限
- # 进入 %RUN%\zyeeda-framework-drivebox\bin 目录，运行 catalina.bat，即可成功运行
+ # 进入 %DOMAIN%\zyeeda-framework-drivebox\bin 目录，运行 catalina.bat，即可成功运行
